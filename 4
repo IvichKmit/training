@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  
+ <meta charset="utf-8">
+</head>
+
+<body>
+
+<script language="javascript" type="text/javascript">
+var cols=prompt("Ведіть кількість рядів");
+var	rows=prompt("Ведіть кількість стовпців");
+function rezult(){
+var table="<table width=60% border=1 cellspacing=0><caption>Таблиця Піфагора</caption>"
+
+	document.write('<table border=1,cellpadding=2,cellspacing=0,width="90%">');
+	for (i=1;i<=cols;i++){
+		document.write("<tr>");
+		for(k=1;k<=rows;k++){
+			if(i*k===1)
+			document.write("<td> </td>");
+			else
+				document.write('<td style="beckground-color:white">'+(i*k)+'</td>');
+			}
+			
+		}
+		document.write("</tr>");
+	
+document.write('</table>');
+}
+
+</script>
+<input 	type="button" onclick="rezult()" value="Вивід даних!">  
+
+
+
+</body>
+
+</html>
