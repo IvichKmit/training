@@ -1,71 +1,92 @@
-let a = '';
-let b = '';
+let firstVariable = '';
+let secondVariable = '';
 let sign = '';
 let finish = false;
-
+ 
 const digit = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
 const action = ['-', '+', 'X', '/'];
-
+ 
 const out = document.querySelector('.calc-screen p');
-
+ 
 function clearAll() {
-    a = '';
-    b = '';
+    firstVariable = '';
+    secondVariable = '';
     sign = '';
     finish = false;
     out.textContent = 0;
 }
-
+ 
 document.querySelector('.ac').onclick = clearAll;
-
+ 
 document.querySelector('.buttons').onclick = (event) => {
     if (!event.target.classList.contains('btn')) return;
     if (event.target.classList.contains('ac')) return;
-
+ 
     out.textContent = '';
-
+ 
     const key = event.target.textContent;
-
     if (digit.includes(key)) {
-        if (b === '' && sign === '') {
-            a += key;
-            out.textContent = a;
-        } else if (a!== '' && b!== '' && finish) {
-            b=key;
-            finish = false;
-            out.textContent = b;
+        if (secondVariable === '' && sign === '') {
+            if (key === '.' && firstVariable.includes('.')) {
+                if (firstVariable.length < 6) {
+                    firstVariable += key;
+                }
+                out.textContent = firstVariable;
+            } else if (firstVariable.length < 6) {
+                firstVariable += key;
+                out.textContent = firstVariable;
+            }
+        } else if (firstVariable !== '' && secondVariable !== '' && finish) {
+            if (secondVariable.length < 6) {
+                secondVariable = key;
+                finish = false;
+                out.textContent = secondVariable;
+            }
         } else {
-            b += key;
-            out.textContent = b;
+            if (key === '.' && secondVariable.includes('.')) {
+                if (secondVariable.length < 6) {
+                    secondVariable += key;
+                }
+                out.textContent = secondVariable;
+            } else if (secondVariable.length < 6) {
+                secondVariable += key;
+                out.textContent = secondVariable;
+            }
         }
-        console.log(a,b,sign);
+        updateFontSize();
         return;
     }
-
+    
     if (action.includes(key)) {
         sign = key;
         out.textContent = sign;
         return;
     }
-
+ 
     if( key === '='){
-        if(b ==='') b=a;
+        if(secondVariable ==='') secondVariable=a;
         switch(sign){
             case"+":
-                a=(+a)+(+b);
+            firstVariable=(+firstVariable)+(+secondVariable);
                 break;
             case"-":
-                a=a-b;
+            firstVariable=firstVariable-secondVariable;
                 break;
             case"X":
-                a=a*b;
+            firstVariable=firstVariable*secondVariable;
                 break;
             case"/":
-                a=a/b;
+            firstVariable=firstVariable/secondVariable;
                 break;
         }
         finish = true;
-        out.textContent = a;
-        console.log(a,b,sign);
+        out.textContent = firstVariable;
+        console.log(firstVariable,secondVariable,sign);
+    }
+
+    function updateFontSize() {
+        const maxLength = 6;
+        const fontSize = Math.min(400 / maxLength, 44);
+        out.style.fontSize = fontSize + 'px';
     }
 }
