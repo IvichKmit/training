@@ -35,6 +35,8 @@ document.querySelector('.buttons').onclick = (event) => {
             } else if (firstVariable.length < 6) {
                 firstVariable += key;
                 out.textContent = firstVariable;
+            }else{
+                out.textContent = firstVariable;
             }
         } else if (firstVariable !== '' && secondVariable !== '' && finish) {
             if (secondVariable.length < 6) {
@@ -51,9 +53,10 @@ document.querySelector('.buttons').onclick = (event) => {
             } else if (secondVariable.length < 6) {
                 secondVariable += key;
                 out.textContent = secondVariable;
+            }else{
+                out.textContent = firstVariable;
             }
         }
-        updateFontSize();
         return;
     }
     
@@ -64,7 +67,7 @@ document.querySelector('.buttons').onclick = (event) => {
     }
  
     if( key === '='){
-        if(secondVariable ==='') secondVariable=a;
+        if(secondVariable ==='') secondVariable=firstVariable;
         switch(sign){
             case"+":
             firstVariable=(+firstVariable)+(+secondVariable);
@@ -79,14 +82,14 @@ document.querySelector('.buttons').onclick = (event) => {
             firstVariable=firstVariable/secondVariable;
                 break;
         }
+        updateFontSize();
         finish = true;
         out.textContent = firstVariable;
         console.log(firstVariable,secondVariable,sign);
     }
-
     function updateFontSize() {
         const maxLength = 6;
-        const fontSize = Math.min(400 / maxLength, 44);
+        const fontSize = Math.min(300 / maxLength, 34);
         out.style.fontSize = fontSize + 'px';
     }
 }
